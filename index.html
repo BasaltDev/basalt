@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basalt Programming Language</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/logo.svg">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script>
+    Prism.languages.basalt = {
+      modifier: /@\w+/,
+      keyword: /\b(class|fn|let|mut|return|repeat|while|if|else|call|new|and|elseif)\b/,
+      builtin: /\b(print|printf|println|input|random|len)\b/,
+      string: /"(?:\\.|[^"\\])*"/,
+      number: /\b\d+(\.\d+)?\b/,
+      comment: /<--.*/
+    };
+  </script>
+</head>
+
+<body>
+
+<button id="theme-toggle" class="btn">🌙</button>
+
+<header class="hero">
+  <img src="assets/logo.svg" class="logo" alt="Basalt logo">
+  <h1>Basalt</h1>
+  <p class="tagline">A modern scripting language forged in stone.</p>
+
+  <div class="buttons">
+    <a href="download.html" class="btn primary">Download Basalt</a>
+    <a href="https://github.com/BasaltDev/BasaltLang" class="btn">GitHub</a>
+  </div>
+</header>
+
+<section class="section">
+  <h2>Why Basalt?</h2>
+  <div class="features">
+    <div class="card"><h3>🧱 Classes</h3><p>Flexible object-oriented model.</p></div>
+    <div class="card"><h3>⚡ Fast Iteration</h3><p>No compile step. Just run.</p></div>
+    <div class="card"><h3>🧠 Modifiers</h3><p>Behavior through annotations.</p></div>
+    <div class="card"><h3>📁 Batteries Included</h3><p>Utilities built-in.</p></div>
+    <div class="card"><h3>✅ Simple</h3><p>Readable, hackable syntax.</p></div>
+  </div>
+</section>
+
+<section class="section" id="features-explorer">
+  <h2>Explore the Language</h2>
+
+  <div class="accordion">
+
+    <div class="accordion-item">
+      <button class="accordion-header">
+        <span>🧱 Variables & Mutability</span>
+        <span class="chevron">▸</span>
+      </button>
+      <div class="accordion-content">
+        <p>Variables are immutable by default. Use <code>mut</code> to reverse that. </p>
+        <pre><code class="language-basalt">
+let x = 10
+let mut y = 0
+y++
+        </code></pre>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-header">
+        <span>🔁 Control Flow</span>
+        <span class="chevron">▸</span>
+      </button>
+      <div class="accordion-content">
+        <p>Readable, script-first flow control.</p>
+        <pre><code class="language-basalt">
+if x > 5 {
+  print("big")
+} else {
+  print("small")
+}
+        </code></pre>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-header">
+        <span>⚙️ Functions</span>
+        <span class="chevron">▸</span>
+      </button>
+      <div class="accordion-content">
+        <p>Functions are lightweight, but a little verbose.</p>
+        <pre><code class="language-basalt">
+fn add(a, b) {
+  a += b
+  return a
+}
+        </code></pre>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-header">
+        <span>🧠 Modifiers</span>
+        <span class="chevron">▸</span>
+      </button>
+      <div class="accordion-content">
+        <p>Modifiers shape runtime behavior instead of keywords.</p>
+        <pre><code class="language-basalt">
+@class(Dog) new("Fido") -> dog
+@class_variable(dog) call bark()
+        </code></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="examples">
+  <h2>Examples</h2>
+  <div class="examples-container">
+
+<pre><code class="language-basalt" data-output="<green>python basalt.py -r class_example.basalt<white>
+Fido says woof!">
+class Dog(name) {
+  fn init() {
+    self set(name name)
+  }
+  fn bark() {
+    printf("[name] says woof!")
+  }
+}
+@class(Dog) new("Fido") -> dog
+@class_variable(dog) call bark()
+</code></pre>
+
+<pre><code class="language-basalt" data-output="<green>python basalt.py -r repeat.basalt<white>
+0
+1
+2
+3
+4">
+let mut x = 0
+repeat 5 {
+  printf("[x]\n")
+  x++
+}
+</code></pre>
+
+  </div>
+</section>
+
+<footer class="footer">
+  © BasaltDev 2026
+</footer>
+<script>
+  html.setAttribute("data-theme", "dark");
+</script>
+<script>
+/* Hover glow tracking */
+document.querySelectorAll(".card, .btn").forEach(el => {
+  el.addEventListener("mousemove", e => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+    el.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
+  });
+});
+
+/* Theme toggle */
+// Dark/Light toggle button
+const themeToggle = document.getElementById("theme-toggle");
+
+themeToggle.addEventListener("click", () => {
+  const html = document.documentElement;
+  const current = html.getAttribute("data-theme");
+
+  if (current === "light") {
+    html.setAttribute("data-theme", "dark");
+    themeToggle.textContent = "🌙"; // moon for dark
+  } else {
+    html.setAttribute("data-theme", "light");
+    themeToggle.textContent = "☀️"; // sun for light
+  }
+});
+
+// Optional: initialize icon based on current theme
+document.addEventListener("DOMContentLoaded", () => {
+  const html = document.documentElement;
+  themeToggle.textContent = html.getAttribute("data-theme") === "light" ? "☀️" : "🌙";
+});
+
+/* Examples runner with typewriter + colors */
+document.querySelectorAll(".examples-container pre code").forEach(code => {
+  const pre = code.parentElement;
+  const wrap = document.createElement("div");
+  wrap.className = "example-wrapper";
+
+  const btn = document.createElement("button");
+  btn.className = "run-btn";
+  btn.textContent = "Run";
+
+  const out = document.createElement("pre");
+  out.className = "example-output";
+
+  pre.before(wrap);
+  wrap.append(pre, btn, out);
+
+  btn.onclick = () => {
+    out.innerHTML = "";
+    const text = code.dataset.output || "";
+    let i = 0, color = "";
+
+    function step() {
+      if (i >= text.length) return;
+
+      const tags = ["green","white","red","yellow"];
+      for (const t of tags) {
+        if (text.startsWith(`<${t}>`, i)) { color = t; i += t.length + 2; return step(); }
+        if (text.startsWith(`</${t}>`, i)) { color = ""; i += t.length + 3; return step(); }
+      }
+
+      const ch = text[i++];
+      if (ch === "\n") {
+        out.appendChild(document.createElement("br"));
+      } else {
+        const s = document.createElement("span");
+        s.textContent = ch;
+        if (color) s.classList.add(color);
+        out.appendChild(s);
+        requestAnimationFrame(() => s.style.opacity = 1);
+      }
+
+      setTimeout(step, 28);
+    }
+
+    setTimeout(step, 200);
+  };
+});
+</script>
+<script>
+document.querySelectorAll(".accordion-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const item = header.parentElement;
+
+    document.querySelectorAll(".accordion-item").forEach(i => {
+      if (i !== item) i.classList.remove("active");
+    });
+
+    item.classList.toggle("active");
+  });
+});
+</script>
+</body>
+</html>

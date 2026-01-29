@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Download Basalt</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/logo.svg">
+  <style>
+    /* Accordion */
+    .accordion {
+      margin-top: 2rem;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .accordion-item {
+      border: 1px solid var(--border);
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .accordion-item-header {
+      background: var(--card);
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    .accordion-item-header:hover {
+      background: var(--bg-soft);
+    }
+
+    .accordion-item-header::after {
+      content: "▸";
+      transition: transform 0.2s ease;
+    }
+
+    .accordion-item.active .accordion-item-header::after {
+      transform: rotate(90deg);
+    }
+
+    .accordion-item-content {
+      background: var(--bg-soft);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 1rem;
+    }
+
+    .accordion-item.active .accordion-item-content {
+      max-height: 500px; /* enough to show content */
+      padding: 1rem;
+    }
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <img src="assets/logo.svg" alt="Basalt Logo" class="logo">
+      <h1>Download Basalt</h1>
+      <p class="tagline">Get the language running on your machine in seconds.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>Options</h2>
+    <div class="features">
+      <div class="card">
+        <h3>📥 Clone from GitHub</h3>
+        <p>Get the full source code and latest updates directly from GitHub.</p>
+        <a href="https://github.com/BasaltDev/BasaltLang" class="btn primary" target="_blank">Clone Repo</a>
+      </div>
+
+      <!--div class="card">
+        <h3>💻 Download Executable</h3>
+        <p>Download the prebuilt Basalt executable for Windows.</p>
+        <a href="https://raw.githubusercontent.com/BasaltDev/BasaltLang/main/basalt.exe" class="btn primary" target="_blank" download>Download basalt.exe</a>
+      </div-->
+    </div>
+
+    <!-- Accordion for Instructions -->
+    <div class="accordion">
+      <div class="accordion-item">
+        <div class="accordion-item-header">💾 Install from GitHub</div>
+        <div class="accordion-item-content">
+          <p>Clone the repo and run Basalt from source:</p>
+          <pre>
+git clone https://github.com/BasaltDev/BasaltLang
+cd BasaltLang
+python basalt.py -r your_script.basalt
+          </pre>
+        </div>
+      </div>
+
+      <!--div class="accordion-item">
+        <div class="accordion-item-header">🖥️ Run Executable</div>
+        <div class="accordion-item-content">
+          <p>Download the prebuilt executable and run it:</p>
+          <pre>
+basalt.exe -r your_script.basalt
+          </pre>
+          <p>Optionally, add Basalt to your PATH for easy command-line access.</p>
+        </div>
+      </div-->
+
+      <div class="accordion-item">
+        <div class="accordion-item-header">⚡ Quick Start Example</div>
+        <div class="accordion-item-content">
+          <p>Once installed, you can try this example:</p>
+          <pre>
+class Dog(name) {
+    fn init() { self set(self_name name) }
+    fn bark() { printf("[self_name] says woof!") }
+}
+@class(Dog) new("Fido") -> dog
+@class_variable(dog) call bark()
+          </pre>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="footer">
+    <p>© BasaltDev 2026</p>
+  </footer>
+
+  <script>
+    // Dark / light toggle
+    const themeToggle = document.getElementById("theme-toggle");
+    if(themeToggle){
+      themeToggle.addEventListener("click", () => {
+        const html = document.documentElement;
+        const current = html.getAttribute("data-theme");
+        if(current === "light") {
+          html.setAttribute("data-theme", "dark");
+          themeToggle.textContent = "🌙";
+        } else {
+          html.setAttribute("data-theme", "light");
+          themeToggle.textContent = "☀️";
+        }
+      });
+    }
+
+    // Accordion JS: only one open at a time
+    const items = document.querySelectorAll('.accordion-item');
+    items.forEach(item => {
+      const header = item.querySelector('.accordion-item-header');
+      header.addEventListener('click', () => {
+        items.forEach(i => {
+          if(i !== item) i.classList.remove('active');
+        });
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
